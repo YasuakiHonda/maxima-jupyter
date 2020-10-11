@@ -223,7 +223,8 @@
         (with-output-to-string (*standard-output*)
           (cl-info::info-exact (inspect-result-symbol res)))))))
 
-(defmethod jupyter:complete-code ((k kernel) code cursor-pos)
+(defmethod jupyter:complete-code ((k kernel) temp code cursor-pos)
+  (declare (ignore temp))
   (if (kernel-in-maxima k)
     (jupyter:handling-errors
       (multiple-value-bind (word start end) (symbol-string-at-position code cursor-pos)
